@@ -2,6 +2,23 @@
 
 **Single Master, Multi node Kubernets** 환경을 구성합니다.
 
+
+appwiz.cpl
+Hiper-V 
+
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+[Ubuntu Noble 24.04 LTS](https://ubuntu.com/download/server)
+[XShell](https://www.netsarang.com/ko/free-for-home-school/)
+
+
+|HOST|IP address  | arch | CPU | Memory | OS |
+|--|--|--|--|--|--|
+|master.example.com|10.100.0.104|X86_64|2core|4GiB |Ubuntu 7.6|
+|node1.example.com|10.100.0.101|X86_64|2core|2GiB |Ubuntu 7.6|
+|node2.example.com|10.100.0.102|X86_64|2core|2GiB |Ubuntu 7.6|
+|node3.example.com|10.100.0.103|X86_64|2core|2GiB |Ubuntu 7.6|
+
+
 |HOST|IP address  | arch | CPU | Memory | OS |
 |--|--|--|--|--|--|
 |master.example.com|10.100.0.104|X86_64|2core|4GiB |CentOS 7.6|
@@ -13,9 +30,9 @@
 ## 1. Docker Install
 master, node1,node2, node3 시스템에 도커 설치
 
-[docs.docker.com ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+[docs.docker.com on ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
-[docs.docker.com CentOS](https://docs.docker.com/engine/install/centos/)
+[docs.docker.com on CentOS](https://docs.docker.com/engine/install/centos/)
 
     # yum install -y yum-utils
     # yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
