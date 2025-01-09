@@ -6,8 +6,10 @@
 appwiz.cpl
 Hiper-V 
 
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
-[Ubuntu Noble 24.04 LTS](https://ubuntu.com/download/server) 
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
+[Ubuntu Noble 24.04 LTS](https://ubuntu.com/download/server)
+
 [XShell](https://www.netsarang.com/ko/free-for-home-school/)
 
 
@@ -27,14 +29,96 @@ Hiper-V
 |node3.example.com|10.100.0.103|X86_64|2core|2GiB |CentOS 7.6|
 
 
+## 네트워크 설정 및 xshell 연결
+
+sudo apt-get install ssh
+sudo apt install net-tools
+sudo systemctl start sshd
+
+네트워크 설정
+포트포워딩 : Rule1,   호스트포트 22, 게스트포트 22
+
+
+=============================================================================================================================
 ## 1. Docker Install
 master, node1,node2, node3 시스템에 도커 설치
 
 [docs.docker.com on ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
-[docs.docker.com on CentOS](https://docs.docker.com/engine/install/centos/)
+# https://docs.docker.com/engine/install/ubuntu/
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo docker run hello-world
+
+sudo usermod -aG docker  groundivy
+
+=============================================================================================================================
+
+## 2. kubeadm, kubectl, kubelet 설치 동작
+master, node1,node2, node3 시스템에 kubeadm, kubectl, kubelet 설치 및 동작
+
+[kubernetes.io](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+
+	1) Swap disabled
+	# swapoff -a && sed -i '/swap/s/^/#/' /etc/fstab
+
+
+	2) Letting iptables see bridged traffic
+	# cat <<EOF > /etc/sysctl.d/k8s.conf
+	net.bridge.bridge-nf-call-ip6tables = 1
+	net.bridge.bridge-nf-call-iptables = 1
+	EOF
+	# sysctl --system
+
+	3) Disable firewall
+	# systemctl stop firewalld 
+	# systemctl disable firewalld
+	
+	4) Set SELinux in permissive mode (effectively disabling it)
+	# setenforce 0
+	# sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+	
+	5) kubeadm, kubelet, kubectl 설치
+	# cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+	[kubernetes]
+	name=Kubernetes
+	baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+	enabled=1
+	gpgcheck=1
+	repo_gpgcheck=1
+	gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+	exclude=kubelet kubeadm kubectl
+	EOF
+	
+	# yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+	# systemctl start kubelet && systemctl enable kubelet
+=============================================================================================================================
+
+
+
+sudo apt install apt-utils
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
 
     # yum install -y yum-utils
+    # sudo apt install apt-utils
     # yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     # yum install docker-ce docker-ce-cli containerd.io
     # systemctl start docker && systemctl enable docker
