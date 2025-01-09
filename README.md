@@ -15,10 +15,10 @@ Hiper-V
 
 |HOST|IP address  | arch | CPU | Memory | OS |
 |--|--|--|--|--|--|
-|master.example.com|10.100.0.104|X86_64|2core|4GiB |Ubuntu 7.6|
-|node1.example.com|10.100.0.101|X86_64|2core|2GiB |Ubuntu 7.6|
-|node2.example.com|10.100.0.102|X86_64|2core|2GiB |Ubuntu 7.6|
-|node3.example.com|10.100.0.103|X86_64|2core|2GiB |Ubuntu 7.6|
+|master.example.com|10.100.0.104|X86_64|2core|4GiB |Ubuntu 6.8|
+|node1.example.com|10.100.0.101|X86_64|2core|2GiB |Ubuntu 6.8|
+|node2.example.com|10.100.0.102|X86_64|2core|2GiB |Ubuntu 6.8|
+|node3.example.com|10.100.0.103|X86_64|2core|2GiB |Ubuntu 6.8|
 
 
 |HOST|IP address  | arch | CPU | Memory | OS |
@@ -33,11 +33,10 @@ Hiper-V
 
 sudo apt-get install ssh
 sudo apt install net-tools
-sudo systemctl start sshd
-
-네트워크 설정
-포트포워딩 : Rule1,   호스트포트 22, 게스트포트 22
-
+# virtualbox 네트워크 설정
+# 포트포워딩 : Rule1,   호스트포트 22, 게스트포트 22
+# xshell 연결
+# host : 127.0.0.1
 
 =============================================================================================================================
 ## 1. Docker Install
@@ -77,7 +76,7 @@ master, node1,node2, node3 시스템에 kubeadm, kubectl, kubelet 설치 및 동
 [kubernetes.io](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 
 	1) Swap disabled
-	# swapoff -a && sed -i '/swap/s/^/#/' /etc/fstab
+sudo swapoff -a && sudo sed -i '/swap/s/^/#/' /etc/fstab
 
 
 	2) Letting iptables see bridged traffic
