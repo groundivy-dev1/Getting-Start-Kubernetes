@@ -6,8 +6,8 @@
 appwiz.cpl
 Hiper-V 
 
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-[Ubuntu Noble 24.04 LTS](https://ubuntu.com/download/server)
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
+[Ubuntu Noble 24.04 LTS](https://ubuntu.com/download/server) 
 [XShell](https://www.netsarang.com/ko/free-for-home-school/)
 
 
